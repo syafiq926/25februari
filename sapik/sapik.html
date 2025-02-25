@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Pilihan Ganda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+        }
+        .options label:hover {
+            background-color: #f9f9f9;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        .correct-answer::after {
+            content: " ✔️";
+            color: green;
+            font-weight: bold;
+            position: absolute;
+            right: 10px;
+        }
+        .wrong-answer::after {
+            content: " ❌";
+            color: red;
+            font-weight: bold;
+            position: absolute;
+            right: 10px;
+        }
+        .score {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Soal Pilihan Ganda</h1>
+
+        <!-- Soal 30 -->
+        <div class="question">
+            <p>30. Untuk melakukan pengaturan halaman yang digunakan untuk mencetak dapat menggunakan tool....</p>
+        </div>
+        <div class="options" id="options-30">
+            <label>
+                <input type="radio" name="answer-30" value="File info"> File info
+            </label>
+            <label>
+                <input type="radio" name="answer-30" value="File tool"> File tool
+            </label>
+            <label>
+                <input type="radio" name="answer-30" value="Revert"> Revert
+            </label>
+            <label>
+                <input type="radio" name="answer-30" value="Color image"> Color image
+            </label>
+            <label>
+                <input type="radio" name="answer-30" value="Type"> Type
+            </label>
+            <label>
+                <input type="radio" name="answer-30" value="Page setup"> Page setup
+            </label>
+            <div id="score-30" class="score"></div>
+        </div>
+
+        <!-- Soal 31 -->
+        <div class="question">
+            <p>31. Manakah dari pernyataan berikut yang BUKAN merupakan tujuan utama dari hierarki visual dalam desain grafis?</p>
+        </div>
+        <div class="options" id="options-31">
+            <label>
+                <input type="radio" name="answer-31" value="Memandu mata audiens melalui informasi"> Memandu mata audiens melalui informasi.
+            </label>
+            <label>
+                <input type="radio" name="answer-31" value="Menciptakan tampilan yang estetis dan menarik"> Menciptakan tampilan yang estetis dan menarik.
+            </label>
+            <label>
+                <input type="radio" name="answer-31" value="Menyajikan informasi secara acak tanpa urutan yang jelas"> Menyajikan informasi secara acak tanpa urutan yang jelas.
+            </label>
+            <label>
+                <input type="radio" name="answer-31" value="Menekankan informasi penting atau utama"> Menekankan informasi penting atau utama.
+            </label>
+            <label>
+                <input type="radio" name="answer-31" value="Memudahkan audiens memahami pesan yang disampaikan"> Memudahkan audiens memahami pesan yang disampaikan.
+            </label>
+            <div id="score-31" class="score"></div>
+        </div>
+
+        <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            // Jawaban yang benar
+            const correctAnswers = {
+                "answer-30": "Page setup",
+                "answer-31": "Menyajikan informasi secara acak tanpa urutan yang jelas"
+            };
+
+            let totalScore = 0;
+
+            // Cek jawaban untuk setiap soal
+            for (const question in correctAnswers) {
+                const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                const options = document.querySelectorAll(`#options-${question.split("-")[1]} label`);
+                const scoreElement = document.querySelector(`#score-${question.split("-")[1]}`);
+
+                // Hapus semua tanda sebelumnya
+                options.forEach(label => {
+                    label.classList.remove('correct-answer', 'wrong-answer');
+                });
+
+                if (selectedAnswer) {
+                    const selectedLabel = selectedAnswer.parentElement;
+                    if (selectedAnswer.value === correctAnswers[question]) {
+                        selectedLabel.classList.add('correct-answer'); // Tanda centang (✔️)
+                        totalScore += 10;
+                        scoreElement.textContent = `Nilai: 10 (Benar!)`;
+                    } else {
+                        selectedLabel.classList.add('wrong-answer'); // Tanda silang (❌)
+                        totalScore += 0;
+                        scoreElement.textContent = `Nilai: 0 (Salah!)`;
+                    }
+                } else {
+                    scoreElement.textContent = `Silakan pilih jawaban terlebih dahulu!`;
+                }
+            }
+
+            alert(`Total Nilai: ${totalScore}`);
+        }
+    </script>
+</body>
+</html>
